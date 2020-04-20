@@ -3,6 +3,7 @@
 <head>
 <title>{{config('app.name', 'wahabapp')}}</title>
 <link rel="stylesheet" href="{{asset('css/app.css')}}">
+<link rel="stylesheet" href="{{asset('css/normal.css')}}">
 </head>
 <body>
 @include('inc.navbar')
