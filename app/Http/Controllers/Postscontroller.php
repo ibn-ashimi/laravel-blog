@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Post;
 
 class Postscontroller extends Controller
 {
@@ -13,7 +14,9 @@ class Postscontroller extends Controller
      */
     public function index()
     {
-        //
+        //$posts = Post::all();
+        $posts = Post::orderBy('title','asc')->paginate(4);
+        return view('posts.index')->with('posts', $posts);
     }
 
     /**
@@ -23,7 +26,7 @@ class Postscontroller extends Controller
      */
     public function create()
     {
-        //
+        return view('posts.create');
     }
 
     /**
@@ -34,7 +37,15 @@ class Postscontroller extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this -> validate($request,[
+            'title' => 'required',
+            'body'  => 'required',
+        ]);
+        $post = new Post;
+        $post -> title = $request -> input('title');
+        $post -> body = $request -> input('body');
+        $post -> save();
+        return redirect ('/posts')->with('success', 'Post Created');
     }
 
     /**
@@ -45,7 +56,8 @@ class Postscontroller extends Controller
      */
     public function show($id)
     {
-        //
+        $post = Post::find($id);
+        return view('posts.show')->with('post', $post);
     }
 
     /**
@@ -56,7 +68,8 @@ class Postscontroller extends Controller
      */
     public function edit($id)
     {
-        //
+        $post = Post::find($id);
+        return view('posts.edit')->with('post', $post);
     }
 
     /**
@@ -68,7 +81,15 @@ class Postscontroller extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this -> validate($request,[
+            'title' => 'required',
+            'body'  => 'required',
+        ]);
+        $post = Post::find($id);
+        $post -> title = $request -> input('title');
+        $post -> body = $request -> input('body');
+        $post -> save();
+        return redirect ('/posts/')->with('success', 'Post Updated');
     }
 
     /**
@@ -79,6 +100,8 @@ class Postscontroller extends Controller
      */
     public function destroy($id)
     {
-        //
+        $post = Post::find($id);
+        $post -> delete();
+        return redirect('/posts')->with('success', 'Post Removed');
     }
 }
