@@ -24,5 +24,4 @@ class PagesController extends Controller
 	}
 
 }
-.bghdfyghlkjhgukgigigiuggiygiiugiuiugiugiygiugiugiygiugigihiuggyiuyfgytvfu5vt587bt6r8t yvrnmjbpovgjkhtv7gfrckuxt5ur6 
 
